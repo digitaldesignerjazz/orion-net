@@ -105,7 +105,8 @@ async def main():
 
         # Re-evaluate everything using current emotional state
         current_scores = {}
-        for pid, _ in peers:
+        for p in peers:
+            pid = p[0]
             current_scores[pid] = router.score_link(pid)
 
         # Choose best link this step
