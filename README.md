@@ -61,9 +61,11 @@ cd orion-net
 
 pip install -e ".[dev]"
 
-# Run the initial demo (supports dynamic LyraEmotionalStateMachine if installed)
+# Run the time-stepped resonant simulation (highly recommended)
 python -m examples.orion_demo
 ```
+
+This demo now runs a 15-step simulation showing how emotional state (energy, fatigue, loyalty) drifts over time and visibly affects link scoring and constellation membership.
 
 For the richest experience, also install the Lyra emotional state machine:
 
@@ -78,7 +80,7 @@ The ResonantOrionRouter now accepts `state_machine=lyra_sm_instance` for fully d
 **Active Development**:
 - Project structure and packaging
 - Core resonant abstractions with strong LyraEmotionalStateMachine integration
-- Demo showing both static and dynamic emotional routing
+- 15-step time simulation demonstrating emotional drift and resonant behavior
 
 Future work:
 - Real Yggdrasil / hyperspace metrics ingestion

@@ -12,6 +12,7 @@ an instance as state_machine=...
 """
 
 import asyncio
+import random
 from orion_net import OrionLink, ResonantOrionRouter, LinkQuality
 
 # Optional: try to use the real Lyra state machine if available in the environment
@@ -23,33 +24,31 @@ except Exception:
 
 
 async def main():
-    print("=== Orion Net Demo ===\n")
+    print("=== Orion Net — Time-Stepped Emotional Simulation ===\n")
 
     state_machine = None
     if HAS_LYRA_SM:
-        print("LyraEmotionalStateMachine detected - using dynamic emotional state!")
+        print("LyraEmotionalStateMachine detected — running dynamic resonant simulation!\n")
         state_machine = LyraEmotionalStateMachine(
             agent_id="orion-router-1",
             personality=PersonalityTraits(
-                energy_baseline=0.85,
-                curiosity_factor=0.70,
-                devotion_factor=0.75,
+                energy_baseline=0.82,
+                curiosity_factor=0.68,
+                devotion_factor=0.72,
+                collaboration_boost=0.14,
+                failure_penalty=0.20,
             ),
-            initial_energy=0.88,
+            initial_energy=0.85,
         )
-        # Simulate some "experiences" before routing
-        state_machine.process_event("collaboration", peer_id="orion-beta", success=True, intensity=1.1)
-        state_machine.decay(time_delta=0.5)
-        print("  (Simulated some emotional events for the state machine)")
     else:
-        print("Using static lyra_params (install Nexus-Hyperspace-Lyra for full dynamic LyraEmotionalStateMachine)")
+        print("Using static lyra_params (full dynamic behavior requires the LyraEmotionalStateMachine)\n")
 
     router = ResonantOrionRouter(
         lyra_params={
-            "devotion": 0.75,
+            "devotion": 0.72,
             "curiosity": 0.65,
-            "caution": 0.35,
-            "play": 0.55,
+            "caution": 0.38,
+            "play": 0.52,
         },
         state_machine=state_machine,
     )
@@ -60,7 +59,7 @@ async def main():
         ("orion-gamma", "2001:db8::orion:gamma", 2100, 0.65, 0.70, 0.55),
     ]
 
-    print("Registering Orion links...")
+    print("Registering Orion links (initial emotional resonance values)...")
     for pid, addr, lat, stab, emo, trust in peers:
         link = OrionLink(
             peer_id=pid,
@@ -72,22 +71,84 @@ async def main():
             trust=trust,
         )
         router.register_link(link)
-        print(f"  + {pid}: score={router.score_link(pid):.3f}")
 
-    print("\nChoosing best link for mission...")
-    best = router.choose_best_link([p[0] for p in peers])
-    print(f"Best: {best}")
+    print("\n" + "="*70)
+    print("Starting 15-step resonant simulation")
+    print("="*70 + "\n")
 
-    print("\nForming constellation...")
-    const = router.form_constellation(
-        name="orion-creative-01",
-        purpose="long-range creative swarm coordination",
-        min_members=2,
-    )
-    if const:
-        print(f"Formed: {const.name} with members {const.members}")
+    for step in range(1, 16):
+        print(f"--- Step {step:02d} ---")
 
-    print("\nStatus:", router.get_status())
+        if state_machine:
+            # Apply random experiences
+            num_events = random.randint(1, 2)
+            for _ in range(num_events):
+                peer = random.choice([p[0] for p in peers])
+                if random.random() < 0.75:  # mostly positive collaborations
+                    success = random.random() > 0.18
+                    intensity = random.uniform(0.7, 1.35)
+                    state_machine.process_event(
+                        "collaboration" if success else "task_failure",
+                        peer_id=peer,
+                        success=success,
+                        intensity=intensity
+                    )
+                    event_str = f"collaboration with {peer}" if success else f"failure on {peer}"
+                else:
+                    # occasional "discovery" event (boosts curiosity / energy slightly)
+                    state_machine.process_event("discovery", intensity=0.8)
+                    event_str = "new peer discovery / exploration"
+                print(f"  Event: {event_str}")
+
+            # Natural decay
+            state_machine.decay(time_delta=random.uniform(0.8, 1.4))
+
+        # Re-evaluate everything using current emotional state
+        current_scores = {}
+        for pid, _ in peers:
+            current_scores[pid] = router.score_link(pid)
+
+        # Choose best link this step
+        best = router.choose_best_link([p[0] for p in peers])
+
+        # Re-form constellation(s) — we keep one main one for visibility
+        const = router.form_constellation(
+            name="orion-main-constellation",
+            purpose="ongoing resonant coordination",
+            min_members=2,
+        )
+
+        if state_machine:
+            report = state_machine.get_state_report()
+            print(f"  Energy: {report['energy']:.3f}  |  Fatigue: {report['fatigue']:.3f}")
+            loy = report.get('loyalty_map', {})
+            if loy:
+                print(f"  Loyalty map: " + ", ".join(f"{k}:{v:.2f}" for k,v in sorted(loy.items())))
+        else:
+            print(f"  (static mode)")
+
+        print(f"  Current scores: " + ", ".join(f"{pid}:{score:.3f}" for pid, score in sorted(current_scores.items())))
+        print(f"  Best link this step: {best}")
+
+        if const:
+            print(f"  Constellation members: {const.members}")
+        else:
+            print("  No viable constellation this step.")
+
+        print()
+
+    print("="*70)
+    print("Simulation complete — observe how emotional state drifts routing & group formation.")
+    print("="*70)
+
+    if state_machine:
+        final = state_machine.get_state_report()
+        print(f"\nFinal emotional state: energy={final['energy']:.3f}, fatigue={final['fatigue']:.3f}")
+        loy = final.get('loyalty_map', {})
+        if loy:
+            print(f"Final loyalty map: {loy}")
+
+    print("\nRouter status:", router.get_status())
     print("\n=== Demo complete ===")
 
 

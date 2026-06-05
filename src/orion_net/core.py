@@ -136,6 +136,25 @@ class ResonantOrionRouter:
         ]
         if len(viable) < min_members:
             return None
+
+        # Bonus: if we have a state machine, prefer groups that have high average loyalty
+        if self.state_machine is not None:
+            try:
+                loyalties = []
+                for pid in viable:
+                    loy = self.state_machine.state.loyalty_map.get(pid, 0.5)
+                    loyalties.append(loy)
+                avg_loyalty = sum(loyalties) / len(loyalties) if loyalties else 0.5
+                # slightly raise the bar or re-score for group cohesion
+                if avg_loyalty < 0.55:
+                    # filter more strictly if the group as a whole has low loyalty
+                    viable = [pid for pid in viable if self.state_machine.state.loyalty_map.get(pid, 0.5) > 0.5]
+            except Exception:
+                pass
+
+        if len(viable) < min_members:
+            return None
+
         const = OrionConstellation(name=name, purpose=purpose)
         scored = sorted([(self.score_link(pid), pid) for pid in viable], reverse=True)
         for _, pid in scored[:min_members + 1]:
