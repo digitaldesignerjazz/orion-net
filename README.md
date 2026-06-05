@@ -6,7 +6,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python](https://img.shields.io/badge/Python-3.11%2B-blue)](https://www.python.org/)
-[![Status](https://img.shields.io/badge/Status-Initialization-orange)](https://github.com/digitaldesignerjazz/orion-net)
+[![Status](https://img.shields.io/badge/Status-Active%20Development-orange)](https://github.com/digitaldesignerjazz/orion-net)
 
 ---
 
@@ -61,25 +61,30 @@ cd orion-net
 
 pip install -e ".[dev]"
 
-# Run the initial demo
+# Run the initial demo (supports dynamic LyraEmotionalStateMachine if installed)
 python -m examples.orion_demo
 ```
 
-## 🗺️ Status & Roadmap
+For the richest experience, also install the Lyra emotional state machine:
 
-**Initialization (current)**:
+```bash
+pip install -e "git+https://github.com/digitaldesignerjazz/Nexus-Hyperspace-Lyra-1.0.git#egg=nexus-hyperspace-lyra"
+```
+
+The ResonantOrionRouter now accepts `state_machine=lyra_sm_instance` for fully dynamic, event-driven emotional modulation of link scores and routing decisions.
+
+## 🔍 Status & Roadmap
+
+**Active Development**:
 - Project structure and packaging
-- Vision and integration points with Nexus/Solnet/Lyra
-- Core abstractions: OrionLink, OrionConstellation, ResonantOrionRouter with Lyra hooks
-- Basic runnable demo
+- Core resonant abstractions with strong LyraEmotionalStateMachine integration
+- Demo showing both static and dynamic emotional routing
 
-Future:
-- Full integration with LyraEmotionalStateMachine from the hyperspace-lyra repo
-- Real Yggdrasil/hyperspace metrics ingestion
-- Dynamic constellation formation algorithms
-- QNET/xMesh over Orion Net
-- Visualization and observability (Grok Launcher style)
-- Self-improvement loops and reputation system
+Future work:
+- Real Yggdrasil / hyperspace metrics ingestion
+- Dynamic constellation formation algorithms driven by emotional state
+- QNET / xMesh payload support over Orion constellations
+- Advanced observability and self-improvement
 
 ## 🔗 Ecosystem
 

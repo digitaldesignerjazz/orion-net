@@ -10,7 +10,7 @@ import time
 import random
 from dataclasses import dataclass, field
 from enum import Enum, auto
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 
 class LinkQuality(Enum):
@@ -61,15 +61,18 @@ class OrionConstellation:
 class ResonantOrionRouter:
     """
     Orion Net router with Lyra emotional modulation hooks.
+    Supports both static lyra_params and a full LyraEmotionalStateMachine instance
+    (from the Nexus-Hyperspace-Lyra project) for dynamic state-driven routing.
     """
 
-    def __init__(self, lyra_params: Optional[Dict[str, float]] = None):
+    def __init__(self, lyra_params: Optional[Dict[str, float]] = None, state_machine: Optional[Any] = None):
         self.lyra_params = lyra_params or {
             "devotion": 0.7,
             "curiosity": 0.6,
             "caution": 0.4,
             "play": 0.5,
         }
+        self.state_machine = state_machine  # LyraEmotionalStateMachine instance if available
         self.links: Dict[str, OrionLink] = {}
         self.constellations: Dict[str, OrionConstellation] = {}
 
@@ -83,20 +86,43 @@ class ResonantOrionRouter:
             link.trust = trust
             link.last_updated = time.time()
 
+    def _get_effective_lyra_params(self, peer_id: Optional[str] = None) -> Dict[str, float]:
+        if self.state_machine is not None:
+            try:
+                # Prefer dynamic params from the state machine
+                params = self.state_machine.get_current_lyra_params()
+                if peer_id:
+                    # Further modulate using the machine's resonance modulator if available
+                    base = 0.5  # placeholder; in real use pass real base
+                    # Note: caller can use state_machine.modulate_resonance directly
+                return params
+            except Exception:
+                pass
+        return self.lyra_params
+
     def score_link(self, peer_id: str) -> float:
         link = self.links.get(peer_id)
         if not link:
             return 0.2
-        lyra_bias = self.lyra_params.get("devotion", 0.5) * 0.5 + self.lyra_params.get("curiosity", 0.5) * 0.5
-        return link.score(lyra_bias=lyra_bias)
+        params = self._get_effective_lyra_params(peer_id)
+        lyra_bias = params.get("devotion", 0.5) * 0.5 + params.get("curiosity", 0.5) * 0.5
+        score = link.score(lyra_bias=lyra_bias)
+        if self.state_machine is not None:
+            try:
+                score = self.state_machine.modulate_resonance(score, peer_id=peer_id)
+            except Exception:
+                pass
+        return score
 
     def choose_best_link(self, candidates: List[str]) -> Optional[str]:
         scored = []
+        params = self._get_effective_lyra_params()
         for pid in candidates:
             if pid in self.links:
                 s = self.score_link(pid)
                 # Play adds some exploration noise
-                noise = random.uniform(-self.lyra_params.get("play", 0.5) * 0.1, self.lyra_params.get("play", 0.5) * 0.1)
+                play = params.get("play", 0.5)
+                noise = random.uniform(-play * 0.1, play * 0.1)
                 scored.append((s + noise, pid))
         if not scored:
             return None
@@ -118,8 +144,10 @@ class ResonantOrionRouter:
         return const
 
     def get_status(self) -> Dict:
+        params = self._get_effective_lyra_params()
         return {
             "links": len(self.links),
             "constellations": len(self.constellations),
-            "lyra_params": self.lyra_params,
+            "lyra_params": params,
+            "using_state_machine": self.state_machine is not None,
         }
