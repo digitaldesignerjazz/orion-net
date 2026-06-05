@@ -1,0 +1,65 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "orion-net"
+version = "0.1.0"
+description = "Orion Net — Long-range constellation networking and coordination layer for Nexus AI swarms, hyperspace, and the NovaNet/xMesh/QNET ecosystem."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+    { name = "Sven Normen Esslinger / Esslinger & Co." }
+]
+requires-python = ">=3.11"
+keywords = [
+    "orion-net", "constellation-network", "hyperspace", "mesh-network", "yggdrasil",
+    "nexus", "lyra", "ai-agents", "swarm-intelligence", "decentralized",
+    "emotional-ai", "resonance", "nova-net", "qnet"
+]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: System :: Networking",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Framework :: AsyncIO",
+]
+
+dependencies = [
+    "aiohttp>=3.9",
+    "rich>=13.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "black>=24.0",
+    "ruff>=0.4",
+    "mypy>=1.10",
+]
+
+[project.urls]
+Homepage = "https://github.com/digitaldesignerjazz/orion-net"
+Repository = "https://github.com/digitaldesignerjazz/orion-net"
+Issues = "https://github.com/digitaldesignerjazz/orion-net/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.black]
+line-length = 88
+
+[tool.ruff]
+line-length = 88
+
+[tool.mypy]
+strict = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"

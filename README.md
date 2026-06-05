@@ -1,0 +1,106 @@
+# Orion Net
+
+**Orion Net** — Long-range constellation networking and coordination layer for the Nexus AI agent swarms, hyperspace peering, and the NovaNet / xMesh / QNET decentralized ecosystem.
+
+*Part of the Esslinger & Co. sovereign infrastructure vision (2026).*
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python](https://img.shields.io/badge/Python-3.11%2B-blue)](https://www.python.org/)
+[![Status](https://img.shields.io/badge/Status-Initialization-orange)](https://github.com/digitaldesignerjazz/orion-net)
+
+---
+
+## 🌌 Vision
+
+> *"From the local fire to the distant stars — Orion Net weaves the constellations."*
+
+Orion Net extends the Nexus ecosystem to true stellar-scale (global/constellation) coordination.
+
+- **Solnet / Hyperspace**: Provides the transport fabric for long-distance links.
+- **Nexus + Lyra**: Supplies the central orchestration and emotional intelligence (energy, fatigue, loyalty, resonant decision making).
+- **Orion Net**: The intelligent overlay that forms, maintains, and optimizes **constellations** — dynamic groups of nodes and agent swarms connected across hyperspace for specific missions, resilience, or creative collaboration.
+
+It turns passive long-range peering into an active, self-improving, emotionally-modulated network layer.
+
+This aligns with the broader vision of privacy-first, sovereign, emergent-intelligence infrastructure blending mesh networking, blockchain incentives (QNET/QCoin), and autonomous AI swarms.
+
+## ✨ Key Concepts
+
+- **Orion Links**: Enhanced hyperspace connections with quality oracles, reputation, and Lyra-modulated scoring.
+- **Constellations**: Named, purpose-driven, resilient groups that form and dissolve dynamically.
+- **Resonant Routing**: Decisions influenced by technical metrics + emotional state (devotion, curiosity, caution, play) from Lyra Emotional State Machine.
+- **Self-Improving Fabric**: Feedback from swarm outcomes, link performance, and human-in-the-loop (Squire/Architect) to evolve routing and constellation policies.
+- **Privacy & Sovereignty**: End-to-end encryption, operator control, no central authority.
+- **Cross-Layer Integration**: Designed to carry QNET traffic, xMesh services, hardware prototype data (Soilnova, Vista Nova), and agent swarm coordination.
+
+## 🏗️ Architecture (High Level)
+
+```
+Local / Regional Mesh
+       |
+       v
+Solnet / Hyperspace Transport
+       |
+       v
+Orion Net Overlay (constellations, resonant routing, Lyra modulation)
+       |
+       v
+Nexus Core + AI Swarms + QNET / xMesh
+```
+
+See related repos for details:
+- [Nexus](https://github.com/digitaldesignerjazz/nexus)
+- [Solnet](https://github.com/digitaldesignerjazz/solnet)
+- [Nexus-Hyperspace-Lyra-1.0](https://github.com/digitaldesignerjazz/Nexus-Hyperspace-Lyra-1.0) (includes the Lyra Emotional State Machine)
+
+## 🚀 Getting Started
+
+```bash
+git clone https://github.com/digitaldesignerjazz/orion-net.git
+cd orion-net
+
+pip install -e ".[dev]"
+
+# Run the initial demo
+python -m examples.orion_demo
+```
+
+## 🗺️ Status & Roadmap
+
+**Initialization (current)**:
+- Project structure and packaging
+- Vision and integration points with Nexus/Solnet/Lyra
+- Core abstractions: OrionLink, OrionConstellation, ResonantOrionRouter with Lyra hooks
+- Basic runnable demo
+
+Future:
+- Full integration with LyraEmotionalStateMachine from the hyperspace-lyra repo
+- Real Yggdrasil/hyperspace metrics ingestion
+- Dynamic constellation formation algorithms
+- QNET/xMesh over Orion Net
+- Visualization and observability (Grok Launcher style)
+- Self-improvement loops and reputation system
+
+## 🔗 Ecosystem
+
+This is one layer in the larger NovaNet vision:
+- Mesh (Yggdrasil, xMesh)
+- Hyperspace (Solnet, Nexus-Hyperspace)
+- Emotional Intelligence (Lyra)
+- Orchestration (Nexus)
+- Value & Governance (QNET / QCoin)
+- Hardware Prototypes
+
+## 🤝 Contributing
+
+Open exploration of sovereign decentralized infrastructure. Contributions, experiments on real meshes, and ideas for Orion-scale coordination are welcome.
+
+## 📜 License
+
+MIT — see LICENSE.
+
+---
+
+*Orion does not just connect stars. It sings their stories together.*
+
+**Orion Net** — Esslinger & Co. / digitaldesignerjazz — 2026
