@@ -65,7 +65,12 @@ pip install -e ".[dev]"
 python -m examples.orion_demo
 ```
 
-This demo now runs a 15-step simulation showing how emotional state (energy, fatigue, loyalty) drifts over time and visibly affects link scoring and constellation membership.
+This demo now runs a 18-step simulation with:
+- More peers (7)
+- Stronger failure penalties + mission success feedback that boosts the *whole* constellation
+- Controlled randomness (RANDOM_SEED at top)
+- Rich bar charts (scores, loyalty, energy) per step
+- [Nexus] and [Solnet] ecosystem wiring inside the loop
 
 For the richest experience, also install the Lyra emotional state machine:
 
@@ -75,12 +80,17 @@ pip install -e "git+https://github.com/digitaldesignerjazz/Nexus-Hyperspace-Lyra
 
 The ResonantOrionRouter now accepts `state_machine=lyra_sm_instance` for fully dynamic, event-driven emotional modulation of link scores and routing decisions.
 
+## Combined Ecosystem Runner
+
+See `examples/nova_mini_cluster.py` for a small "start the next piece" combined runner that spins up a mini Nexus + Solnet + Orion + Lyra cluster simulation (gracefully mocks missing pieces).
+
 ## 🔍 Status & Roadmap
 
 **Active Development**:
-- Project structure and packaging
-- Core resonant abstractions with strong LyraEmotionalStateMachine integration
-- 15-step time simulation demonstrating emotional drift and resonant behavior
+- Dramatic emotional drift simulation
+- Rich visualization
+- Ecosystem mock integrations
+- Nova mini-cluster launcher
 
 Future work:
 - Real Yggdrasil / hyperspace metrics ingestion
